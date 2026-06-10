@@ -2,43 +2,25 @@ package Exemplo.copaMundo.Model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.math.BigDecimal;
-
-@Getter
-@Setter
+import jakarta.validation.constraints.*;
+import lombok.*;
 @Entity
-@Table(name = "Selecao")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Selecao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private  Long id;
+    private Long id;
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
+    @NotBlank(message = "Grupo é obrigatório")
     private String grupo;
     private String fase;
-
-    @Min(value = 0, message = "Quantidade não pode ser negativa")
-    @Column(nullable = false)
-    private Integer gols_marcados;
-
-    @Min(value = 0, message = "Quantidade não pode ser negativa")
-    @Column(nullable = false)
-    private Integer gols_sofridos;
-
-    @DecimalMin(value = "0.01", message = "Valor de Plantel deve ser maior que zero")
-    @Column(name = "valor_plantel", nullable = false, precision = 10, scale = 2)
-    private BigDecimal valor_plantel;
-
-
-
-
-
-
-
-
+    @Min(value = 0, message = "Gols marcados não pode ser negativo")
+    private Integer golsMarcados;
+    @Min(value = 0, message = "Gols sofridos não pode ser negativo")
+    private Integer golsSofridos;
+    @Positive(message = "Valor do plantel deve ser maior que zero")
+    private Double valorPlantel;
+    private Integer jogadoresDisponiveis = 0;
 }

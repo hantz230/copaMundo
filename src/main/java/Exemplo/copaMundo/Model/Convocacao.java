@@ -1,28 +1,19 @@
 package Exemplo.copaMundo.Model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
+import jakarta.validation.constraints.*;
+import lombok.*;
 import java.time.LocalDate;
-
-@Getter
-@Setter
 @Entity
-@Table(name = "Convocação")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Convocacao {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    private  Long id;
-
-    @Column(name = "data_convocacao", nullable = false)
+    private Long id;
     private LocalDate dataConvocacao;
-
+    @Positive(message = "Quantidade deve ser maior que zero")
     private Integer quantidade;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private  Selecao selecao;
-
+    @ManyToOne
+    private Selecao selecao;
 }
